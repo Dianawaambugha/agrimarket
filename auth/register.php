@@ -1,10 +1,13 @@
 <?php
 
+session_start();
+
 require_once "../config/db.php";
+require_once "../config/mail.php";
 
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+if($_SERVER["REQUEST_METHOD"]=="POST")
 {
     $full_name = trim($_POST["full_name"]);
     $email = trim($_POST["email"]);
@@ -13,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $role = $_POST["role"];
 
     $hashed_password =
-    password_hash($password, PASSWORD_DEFAULT);
+    password_hash($password,PASSWORD_DEFAULT);
 
     try
     {
@@ -31,66 +34,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
         else
         {
-            /*
-            Farmers require approval.
-            Buyers are active immediately.
-            */
+            $otp = rand(100000,999999);
 
-            $status = "Active";
+            $_SESSION["otp"] = $otp;
 
-            if($role == "Farmer")
+            $_SESSION["full_name"] = $full_name;
+            $_SESSION["email"] = $email;
+            $_SESSION["phone"] = $phone;
+            $_SESSION["password"] = $hashed_password;
+            $_SESSION["role"] = $role;
+
+            if(sendOTP($email,$otp))
             {
-                $status = "Inactive";
-            }
-
-            $stmt = $conn->prepare("
-            INSERT INTO users
-            (
-                full_name,
-                email,
-                phone_number,
-                password,
-                role,
-                status
-            )
-            VALUES
-            (?,?,?,?,?,?)
-            ");
-
-            $stmt->execute([
-                $full_name,
-                $email,
-                $phone,
-                $hashed_password,
-                $role,
-                $status
-            ]);
-
-            $user_id = $conn->lastInsertId();
-
-            if($role == "Farmer")
-            {
-                $farmer = $conn->prepare("
-                INSERT INTO farmers(user_id)
-                VALUES(?)
-                ");
-
-                $farmer->execute([$user_id]);
-
-                $message =
-                "Registration successful. Your account is awaiting administrator approval.";
+                header("Location: verify_otp.php");
+                exit();
             }
             else
             {
-                $buyer = $conn->prepare("
-                INSERT INTO buyers(user_id)
-                VALUES(?)
-                ");
-
-                $buyer->execute([$user_id]);
-
-                $message =
-                "Registration successful. You can now login.";
+                $message = "Failed to send OTP email.";
             }
         }
     }
@@ -102,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 ?>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>Register</title>
@@ -173,3 +135,4 @@ Register
 
 </body>
 </html>
+?>

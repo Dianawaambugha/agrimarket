@@ -25,11 +25,11 @@ ORDER BY product_name
 <!DOCTYPE html>
 <html>
 <head>
-<title>Market Insights</title>
+<title>Market insights</title>
 </head>
 <body>
 
-<h2>Market Insights</h2>
+<h2>Market insights</h2>
 
 <table border="1" cellpadding="10">
 

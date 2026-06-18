@@ -50,11 +50,6 @@ Manage Users
 Market Prices
 </a>
 
-<br><br>
-
-<a href="reports.php">
-System Reports
-</a>
 
 <br><br>
 
@@ -69,6 +64,20 @@ View Audit Logs
 <br><br>
 <a href="reports.php">
 System Reports
+</a>
+<br><br>
+<a href="analytics_dashboard.php">
+📊 Analytics Dashboard
+</a>
+
+<br><br>
+<a href="charts_dashboard.php">
+📈 Charts Dashboard
+</a>
+
+<br><br>
+<a href="export_reports.php">
+Export Reports
 </a>
 <br><br>
 <a href="price_predictions.php">

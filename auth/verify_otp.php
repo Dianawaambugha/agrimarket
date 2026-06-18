@@ -6,23 +6,35 @@ require_once "../config/db.php";
 
 $message = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
+if($_SERVER["REQUEST_METHOD"]=="POST")
 {
-    $otp = $_POST["otp"];
+    $otp = trim($_POST["otp"]);
 
-    if($otp == $_SESSION["otp"])
+    if(
+        isset($_SESSION["otp"])
+        &&
+        $otp == $_SESSION["otp"]
+    )
     {
+        $status = "Active";
+
+        if($_SESSION["role"]=="Farmer")
+        {
+            $status = "Inactive";
+        }
+
         $stmt = $conn->prepare("
-            INSERT INTO users
-            (
-                full_name,
-                email,
-                phone_number,
-                password,
-                role
-            )
-            VALUES
-            (?,?,?,?,?)
+        INSERT INTO users
+        (
+            full_name,
+            email,
+            phone_number,
+            password,
+            role,
+            status
+        )
+        VALUES
+        (?,?,?,?,?,?)
         ");
 
         $stmt->execute([
@@ -30,7 +42,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION["email"],
             $_SESSION["phone"],
             $_SESSION["password"],
-            $_SESSION["role"]
+            $_SESSION["role"],
+            $status
         ]);
 
         $user_id =
@@ -71,6 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 ?>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>Verify OTP</title>
@@ -78,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
 <body>
 
-<h2>Enter OTP</h2>
+<h2>Email Verification</h2>
 
 <p><?php echo $message; ?></p>
 
@@ -87,13 +101,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 <input
 type="text"
 name="otp"
-placeholder="OTP"
+placeholder="Enter OTP"
 required>
 
 <br><br>
 
 <button type="submit">
-Verify
+Verify OTP
 </button>
 
 </form>
