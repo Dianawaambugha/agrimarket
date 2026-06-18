@@ -53,10 +53,7 @@ Market Prices
 
 <br><br>
 
-<a href="audit_logs.php">
-Audit Logs
-</a>
-<br><br>
+
 <a href="audit_logs.php">
 View Audit Logs
 </a>
