@@ -1,3 +1,4 @@
+diana 
 <?php
 
 require_once "auth_check.php";
@@ -164,6 +165,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 <html>
 <head>
 <title>Add Products</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>

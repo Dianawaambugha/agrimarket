@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -94,36 +95,45 @@ $profile = $stmt->fetch();
 <head>
 
 <title>Buyer Profile</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-input,
-textarea{
-    width:400px;
-    padding:8px;
-}
-
-</style>
 
 </head>
 
 <body>
 
-<h2>My Profile</h2>
+<div class="container">
 
-<p style="color:green;">
-<?php echo $message; ?>
-</p>
+<div class="header">
+    <h2>👤 My Profile</h2>
+</div>
+
+<div class="navigation">
+
+<a href="dashboard.php">Dashboard</a>
+
+<a href="marketplace.php">Marketplace</a>
+
+<a href="my_orders.php">My Orders</a>
+
+</div>
+
+<?php if(!empty($message)): ?>
+
+<div class="success">
+    <?php echo $message; ?>
+</div>
+
+<?php endif; ?>
+
+<div class="card">
 
 <form method="POST">
 
+<div class="form-group">
+
 <label>Full Name</label>
-<br>
 
 <input
 type="text"
@@ -131,20 +141,22 @@ name="full_name"
 value="<?php echo htmlspecialchars($profile["full_name"]); ?>"
 required>
 
-<br><br>
+</div>
+
+<div class="form-group">
 
 <label>Email Address</label>
-<br>
 
 <input
 type="email"
 value="<?php echo htmlspecialchars($profile["email"]); ?>"
 readonly>
 
-<br><br>
+</div>
+
+<div class="form-group">
 
 <label>Phone Number</label>
-<br>
 
 <input
 type="text"
@@ -152,39 +164,43 @@ name="phone_number"
 value="<?php echo htmlspecialchars($profile["phone_number"]); ?>"
 required>
 
-<br><br>
+</div>
+
+<div class="form-group">
 
 <label>Delivery Address</label>
-<br>
 
 <textarea
 name="delivery_address"
 rows="5"
 required><?php echo htmlspecialchars($profile["delivery_address"]); ?></textarea>
 
-<br><br>
+</div>
+
+<div class="form-group">
 
 <label>Member Since</label>
-<br>
 
 <input
 type="text"
 value="<?php echo $profile["created_at"]; ?>"
 readonly>
 
-<br><br>
+</div>
 
-<button type="submit">
+<button class="btn" type="submit">
 Update Profile
 </button>
 
 </form>
 
-<br><br>
+</div>
 
-<a href="dashboard.php">
-Back To Dashboard
+<a class="btn" href="dashboard.php">
+← Back To Dashboard
 </a>
+
+</div>
 
 </body>
 </html>

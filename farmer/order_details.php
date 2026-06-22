@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -90,6 +91,9 @@ if(!$order)
 <html>
 <head>
 <title>Order Details</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>

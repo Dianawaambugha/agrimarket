@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -36,23 +37,8 @@ $logs = $stmt->fetchAll();
 
 <head>
 <title>Audit Logs</title>
-
-<style>
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-table,th,td{
-    border:1px solid black;
-}
-
-th,td{
-    padding:10px;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 

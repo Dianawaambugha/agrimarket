@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -21,6 +22,8 @@ if($_SESSION["role"] != "Admin")
 
 <head>
 <title>Export Reports</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 </head>
 
 <body>

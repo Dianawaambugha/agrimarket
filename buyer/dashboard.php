@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -86,87 +87,118 @@ $total_spent = $total_spent->fetchColumn();
 <head>
 
 <title>Buyer Dashboard</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-.card{
-    border:1px solid #ddd;
-    padding:15px;
-    margin-bottom:15px;
-    background:#f8f8f8;
-}
-
-</style>
 
 </head>
 
 <body>
 
-<h2>
-Welcome <?php echo htmlspecialchars($_SESSION["name"]); ?>
-</h2>
+<<div class="container">
 
-<hr>
+<div class="header">
+    <h2>👋 Welcome, <?php echo htmlspecialchars($_SESSION["name"]); ?></h2>
+    <p>Manage your purchases, orders and market insights.</p>
+</div>
 
-<div class="card">
+<div class="stats-grid">
 
-<h3>My Statistics</h3>
+```
+<div class="stat-card green">
+    <h3>📦 Total Orders</h3>
+    <p><?php echo $total_orders; ?></p>
+</div>
 
-<p>
-Total Orders:
-<b><?php echo $total_orders; ?></b>
-</p>
+<div class="stat-card orange">
+    <h3>⏳ Pending Orders</h3>
+    <p><?php echo $pending_orders; ?></p>
+</div>
 
-<p>
-Pending Orders:
-<b><?php echo $pending_orders; ?></b>
-</p>
+<div class="stat-card blue">
+    <h3>🚚 Delivered Orders</h3>
+    <p><?php echo $delivered_orders; ?></p>
+</div>
 
-<p>
-Delivered Orders:
-<b><?php echo $delivered_orders; ?></b>
-</p>
-
-<p>
-Total Spent:
-<b>KES <?php echo number_format($total_spent,2); ?></b>
-</p>
+<div class="stat-card purple">
+    <h3>💰 Total Spent</h3>
+    <p>KES <?php echo number_format($total_spent,2); ?></p>
+</div>
+```
 
 </div>
 
-<hr>
+<div class="card">
+
+<h3>🛍 Buyer Services</h3>
+
+<div class="service-grid">
+
+<div class="service-card">
+<h2>🛒</h2>
+<a href="marketplace.php">Browse Products</a>
+</div>
+
+<div class="service-card">
+<h2>📦</h2>
+<a href="my_orders.php">My Orders</a>
+</div>
+
+<div class="service-card">
+<h2>💬</h2>
+<a href="messages.php">Messages</a>
+</div>
+
+<div class="service-card">
+<h2>📊</h2>
+<a href="spending_analytics.php">Spending Analytics</a>
+</div>
+
+<div class="service-card">
+<h2>📈</h2>
+<a href="market_insights.php">Market Insights</a>
+</div>
+
+<div class="service-card">
+<h2>👤</h2>
+<a href="profile.php">My Profile</a>
+</div>
+
+<div class="service-card logout-card">
+<h2>🚪</h2>
+<a href="../auth/logout.php">Logout</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
 
 <h3>Buyer Services</h3>
 
-<a href="marketplace.php">
-🛒 Browse Products
-</a>
+<br>
 
-<br><br>
+<a class="btn" href="marketplace.php">🛒 Browse Products</a>
 
-<a href="my_orders.php">
-📦 My Orders
-</a>
+<a class="btn" href="my_orders.php">📦 My Orders</a>
 
-<br><br>
-<a href="market_insights.php">
-📈 Market Insights
-</a>
-<br><br>
-<a href="profile.php">
-👤 My Profile
-</a>
-<br><br>
+<a class="btn" href="messages.php">💬 Messages</a>
 
+<a class="btn" href="spending_analytics.php">📊 Spending Analytics</a>
 
-<a href="../auth/logout.php">
-🚪 Logout
-</a>
+<a class="btn" href="market_insights.php">📈 Market Insights</a>
+
+<a class="btn" href="profile.php">👤 My Profile</a>
+
+<a class="btn btn-danger" href="../auth/logout.php">🚪 Logout</a>
+
+</div>
+
+</div>
 
 </body>
 </html>

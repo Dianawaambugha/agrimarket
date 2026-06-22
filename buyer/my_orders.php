@@ -1,4 +1,4 @@
-```php
+diana 
 <?php
 
 session_start();
@@ -81,16 +81,43 @@ $orders = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <title>My Orders</title>
+
+
 </head>
 
 <body>
 
-<h2>My Orders</h2>
+<div class="container">
 
-<table border="1" cellpadding="10">
+<div class="header">
+    <h2>📦 My Orders</h2>
+</div>
+
+<div class="navigation">
+
+<a href="dashboard.php">
+Dashboard
+</a>
+
+<a href="marketplace.php">
+Marketplace
+</a>
+
+<a href="profile.php">
+Profile
+</a>
+
+</div>
+
+<div class="card">
+
+<table>
 
 <tr>
 <th>Order ID</th>
@@ -100,40 +127,82 @@ $orders = $stmt->fetchAll();
 <th>Total Amount</th>
 <th>Status</th>
 <th>Order Date</th>
-<th>Action</th>
+<th>Actions</th>
 </tr>
 
 <?php foreach($orders as $order): ?>
 
 <tr>
 
-<td><?php echo $order["order_id"]; ?></td>
+<td>
+#<?php echo $order["order_id"]; ?>
+</td>
 
-<td><?php echo htmlspecialchars($order["product_name"]); ?></td>
+<td>
+<?php echo htmlspecialchars($order["product_name"]); ?>
+</td>
 
-<td><?php echo htmlspecialchars($order["farmer_name"]); ?></td>
+<td>
+<?php echo htmlspecialchars($order["farmer_name"]); ?>
+</td>
 
-<td><?php echo $order["quantity_ordered"]; ?></td>
+<td>
+<?php echo $order["quantity_ordered"]; ?>
+</td>
 
 <td>
 KES <?php echo number_format($order["total_amount"],2); ?>
 </td>
 
-<td><?php echo $order["order_status"]; ?></td>
+<td>
 
-<td><?php echo $order["order_date"]; ?></td>
+<?php
+
+$status = $order["order_status"];
+
+if($status=="Pending")
+{
+    echo "🟡 Pending";
+}
+elseif($status=="Confirmed")
+{
+    echo "🔵 Confirmed";
+}
+elseif($status=="Paid")
+{
+    echo "💳 Paid";
+}
+elseif($status=="Dispatched")
+{
+    echo "🚚 Dispatched";
+}
+elseif($status=="Delivered")
+{
+    echo "✅ Delivered";
+}
+elseif($status=="Cancelled")
+{
+    echo "❌ Cancelled";
+}
+
+?>
+
+</td>
+
+<td>
+<?php echo $order["order_date"]; ?>
+</td>
 
 <td>
 
 <?php if($order["order_status"]=="Pending"): ?>
 
-<a href="cancel_order.php?id=<?php echo $order["order_id"]; ?>">
-Cancel Order
+<a
+class="btn btn-danger"
+href="cancel_order.php?id=<?php echo $order["order_id"]; ?>"
+onclick="return confirm('Cancel this order?')">
+Cancel
 </a>
-
-<?php else: ?>
-
--
 
 <?php endif; ?>
 
@@ -145,12 +214,13 @@ Cancel Order
 
 </table>
 
-<br><br>
+</div>
 
-<a href="dashboard.php">
-Back To Dashboard
+<a class="btn" href="dashboard.php">
+← Back To Dashboard
 </a>
+
+</div>
 
 </body>
 </html>
-```

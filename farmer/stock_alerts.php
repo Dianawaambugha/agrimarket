@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -59,29 +60,8 @@ $products = $stmt->fetchAll();
 <head>
 
 <title>Stock Alerts</title>
-
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-.warning{
-    background:#fff3cd;
-    border:1px solid #ffeeba;
-    padding:10px;
-    margin-bottom:10px;
-}
-
-.danger{
-    background:#f8d7da;
-    border:1px solid #f5c6cb;
-    padding:10px;
-    margin-bottom:10px;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 
@@ -144,4 +124,3 @@ Back To Dashboard
 
 </body>
 </html>
-```

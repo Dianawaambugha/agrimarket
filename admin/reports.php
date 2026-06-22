@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -155,31 +156,8 @@ FROM audit_logs
 <head>
 
 <title>System Reports</title>
-
-<style>
-
-body{
-font-family:Arial;
-margin:20px;
-}
-
-.section{
-border:1px solid #ddd;
-padding:15px;
-margin-bottom:15px;
-border-radius:8px;
-background:#fafafa;
-}
-
-h2{
-color:#2c3e50;
-}
-
-h3{
-color:#27ae60;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 

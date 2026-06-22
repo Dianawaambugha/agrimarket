@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -19,6 +20,9 @@ if($_SESSION["role"] != "Admin")
 <html>
 <head>
 <title>Admin Dashboard</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>
@@ -71,7 +75,10 @@ System Reports
 <a href="charts_dashboard.php">
 📈 Charts Dashboard
 </a>
-
+<br><br>
+<a href="messages.php">
+💬 Messaging Center
+</a>
 <br><br>
 <a href="export_reports.php">
 Export Reports

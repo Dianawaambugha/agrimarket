@@ -1,3 +1,4 @@
+diana 
 <?php
 
 function logActivity($conn,$user_id,$action)

@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -158,46 +159,8 @@ $prediction_confidence = 80;
 <head>
 
 <title>Analytics Dashboard</title>
-
-<style>
-
-body{
-font-family:Arial;
-margin:20px;
-}
-
-.card{
-border:1px solid #ddd;
-padding:15px;
-margin-bottom:15px;
-background:#fafafa;
-border-radius:8px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
-}
-
-table,th,td{
-border:1px solid #ccc;
-}
-
-th{
-background:#f2f2f2;
-}
-
-th,td{
-padding:10px;
-text-align:left;
-}
-
-h2{
-color:#2c3e50;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 

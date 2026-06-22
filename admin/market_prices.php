@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -30,6 +31,8 @@ $prices = $stmt->fetchAll();
 <html>
 <head>
 <title>Market Prices</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 </head>
 
 <body>

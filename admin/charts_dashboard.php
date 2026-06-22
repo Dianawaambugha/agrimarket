@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -94,29 +95,11 @@ while($row = $product_stmt->fetch())
 <head>
 
 <title>Charts Dashboard</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-.chart-box{
-    width:90%;
-    margin:auto;
-    margin-bottom:50px;
-}
-
-canvas{
-    background:#fff;
-    border:1px solid #ddd;
-    padding:10px;
-}
-
-</style>
 
 </head>
 

@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -32,24 +33,8 @@ $users = $stmt->fetchAll();
 
 <head>
 <title>Manage Users</title>
-
-<style>
-
-table{
-    border-collapse:collapse;
-    width:100%;
-}
-
-table,th,td{
-    border:1px solid black;
-}
-
-th,td{
-    padding:10px;
-    text-align:left;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 

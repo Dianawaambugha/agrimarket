@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -41,6 +42,9 @@ $products = $products->fetchAll();
 <html>
 <head>
 <title>Market Insights</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 <body>
 

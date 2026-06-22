@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -213,6 +214,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
 <html>
 <head>
 <title>Edit Product</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 </head>
 
 <body>

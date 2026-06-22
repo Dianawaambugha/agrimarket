@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -156,6 +157,9 @@ $results = $orders->fetchAll();
 <html>
 <head>
 <title>Delivery Tracking</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 <body>
 

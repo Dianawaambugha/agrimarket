@@ -182,41 +182,8 @@ $monthly_sales = $stmt->fetchAll();
 <head>
 
 <title>Sales Analytics</title>
-
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-.card{
-    border:1px solid #ddd;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:8px;
-    background:#f8f8f8;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-table, th, td{
-    border:1px solid #ccc;
-}
-
-th{
-    background:#f2f2f2;
-}
-
-th, td{
-    padding:10px;
-    text-align:left;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 
@@ -316,4 +283,3 @@ Back To Dashboard
 
 </body>
 </html>
-```

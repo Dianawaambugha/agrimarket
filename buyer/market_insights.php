@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -26,6 +27,9 @@ ORDER BY product_name
 <html>
 <head>
 <title>Market insights</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 <body>
 

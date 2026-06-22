@@ -1,3 +1,4 @@
+diana 
 <?php
 
 require_once "auth_check.php";
@@ -18,6 +19,9 @@ $products = $stmt->fetchAll();
 <html>
 <head>
 <title>My Products</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>

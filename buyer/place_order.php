@@ -1,7 +1,7 @@
+diana 
 <?php
 
 session_start();
-
 require_once "../config/db.php";
 
 if(!isset($_SESSION["user_id"]))
@@ -12,130 +12,204 @@ if(!isset($_SESSION["user_id"]))
 
 if($_SESSION["role"] != "Buyer")
 {
-    die("Access denied");
+    die("Access Denied");
 }
 
-if(!isset($_GET["id"]))
-{
-    die("Product not selected.");
-}
+/*
+|--------------------------------------------------------------------------
+| GET BUYER ID
+|--------------------------------------------------------------------------
+*/
 
-$product_id = $_GET["id"];
-
-$product_query = $conn->prepare("
-SELECT *
-FROM products
-WHERE product_id=?
+$buyer_query = $conn->prepare("
+SELECT buyer_id
+FROM buyers
+WHERE user_id=?
 ");
 
-$product_query->execute([$product_id]);
+$buyer_query->execute([
+    $_SESSION["user_id"]
+]);
 
-$product = $product_query->fetch();
+$buyer = $buyer_query->fetch();
 
-if(!$product)
+if(!$buyer)
 {
-    die("Product not found.");
+    die("Buyer profile not found.");
 }
 
-$message = "";
+$buyer_id = $buyer["buyer_id"];
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    $quantity_ordered = $_POST["quantity"];
+/*
+|--------------------------------------------------------------------------
+| GET ORDERS
+|--------------------------------------------------------------------------
+*/
 
-    $total_amount =
-    $quantity_ordered *
-    $product["price_per_unit"];
+$stmt = $conn->prepare("
+SELECT
+o.order_id,
+o.quantity_ordered,
+o.total_amount,
+o.order_status,
+o.order_date,
 
-    $buyer_query = $conn->prepare("
-    SELECT buyer_id
-    FROM buyers
-    WHERE user_id=?
-    ");
+p.product_name,
 
-    $buyer_query->execute([
-        $_SESSION["user_id"]
-    ]);
+u.full_name AS farmer_name
 
-    $buyer = $buyer_query->fetch();
+FROM orders o
 
-    $buyer_id = $buyer["buyer_id"];
+INNER JOIN products p
+ON o.product_id = p.product_id
 
-    $order = $conn->prepare("
-    INSERT INTO orders
-    (
-        buyer_id,
-        product_id,
-        quantity_ordered,
-        total_amount
-    )
-    VALUES
-    (?,?,?,?)
-    ");
+INNER JOIN farmers f
+ON p.farmer_id = f.farmer_id
 
-    $order->execute([
-        $buyer_id,
-        $product_id,
-        $quantity_ordered,
-        $total_amount
-    ]);
+INNER JOIN users u
+ON f.user_id = u.user_id
 
-    $message =
-    "Order placed successfully.";
-}
+WHERE o.buyer_id=?
+
+ORDER BY o.order_id DESC
+");
+
+$stmt->execute([$buyer_id]);
+
+$orders = $stmt->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Place Order</title>
+
+<title>My Orders</title>
+
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>
 
-<h2>Place Order</h2>
+<div class="container">
 
-<p style="color:green;">
-<?php echo $message; ?>
-</p>
+<div class="header">
 
-<h3>
-<?php echo $product["product_name"]; ?>
-</h3>
+<h2>📦 My Orders</h2>
+
+</div>
+
+<div class="navigation">
+
+<a href="dashboard.php">Dashboard</a>
+
+<a href="marketplace.php">Marketplace</a>
+
+<a href="profile.php">Profile</a>
+
+<a href="messages.php">Messages</a>
+
+</div>
+
+<?php if(empty($orders)): ?>
+
+<div class="card">
 
 <p>
-Price:
-KES <?php echo $product["price_per_unit"]; ?>
-per <?php echo $product["unit"]; ?>
+You have not placed any orders yet.
 </p>
 
-<form method="POST">
+<a class="btn" href="marketplace.php">
+Browse Products
+</a>
 
-<label>
-Quantity Required
-</label>
+</div>
 
-<br><br>
+<?php endif; ?>
 
-<input
-type="number"
-step="0.1"
-name="quantity"
-required>
+<?php foreach($orders as $order): ?>
 
-<br><br>
+<div class="order-card">
 
-<button type="submit">
-Place Order
-</button>
+<div class="order-top">
 
-</form>
+<h3>
+<?php echo htmlspecialchars($order["product_name"]); ?>
+</h3>
+
+<?php
+
+$status = strtolower($order["order_status"]);
+
+?>
+
+<span class="badge <?php echo $status; ?>">
+
+<?php echo htmlspecialchars($order["order_status"]); ?>
+
+</span>
+
+</div>
+
+<p>
+
+<strong>Farmer:</strong>
+
+<?php echo htmlspecialchars($order["farmer_name"]); ?>
+
+</p>
+
+<p>
+
+<strong>Quantity:</strong>
+
+<?php echo $order["quantity_ordered"]; ?>
+
+</p>
+
+<p>
+
+<strong>Total Amount:</strong>
+
+KES <?php echo number_format($order["total_amount"],2); ?>
+
+</p>
+
+<p>
+
+<strong>Order Date:</strong>
+
+<?php echo $order["order_date"]; ?>
+
+</p>
+
+<?php if($order["order_status"]=="Pending"): ?>
+
+<a
+class="btn btn-danger"
+href="cancel_order.php?id=<?php echo $order["order_id"]; ?>"
+onclick="return confirm('Are you sure you want to cancel this order?')">
+
+Cancel Order
+
+</a>
+
+<?php endif; ?>
+
+</div>
+
+<?php endforeach; ?>
 
 <br>
 
-<a href="marketplace.php">
-Back to Marketplace
+<a class="btn" href="dashboard.php">
+← Back To Dashboard
 </a>
+
+</div>
 
 </body>
 </html>

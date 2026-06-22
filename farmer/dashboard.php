@@ -1,3 +1,4 @@
+diana 
 <?php
 
 require_once "auth_check.php";
@@ -9,7 +10,7 @@ require_once "auth_check.php";
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM products
 WHERE farmer_id=?
 ");
@@ -25,7 +26,7 @@ $total_products = $stmt->fetchColumn();
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM products
 WHERE farmer_id=?
 AND status='Available'
@@ -42,7 +43,7 @@ $available_products = $stmt->fetchColumn();
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM products
 WHERE farmer_id=?
 AND status='Sold Out'
@@ -59,7 +60,7 @@ $sold_products = $stmt->fetchColumn();
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM orders o
 INNER JOIN products p
 ON o.product_id = p.product_id
@@ -77,7 +78,7 @@ $total_orders = $stmt->fetchColumn();
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM orders o
 INNER JOIN products p
 ON o.product_id = p.product_id
@@ -96,7 +97,7 @@ $pending_orders = $stmt->fetchColumn();
 */
 
 $stmt = $conn->prepare("
-SELECT COUNT(*) total
+SELECT COUNT(*)
 FROM orders o
 INNER JOIN products p
 ON o.product_id = p.product_id
@@ -168,156 +169,173 @@ $average_price = $stmt->fetchColumn();
 ?>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
 
 <title>Farmer Dashboard</title>
 
-<style>
-
-body{
-    font-family:Arial;
-    margin:20px;
-}
-
-.card{
-    border:1px solid #ddd;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:8px;
-    background:#f8f8f8;
-}
-
-a{
-    text-decoration:none;
-}
-
-</style>
+<link rel="stylesheet" href="../assets/css/style.css">
 
 </head>
 
 <body>
 
+<div class="header">
+🌾 Agri Market Connect - Farmer Dashboard
+</div>
+
+<div class="container">
+
 <h2>
-Welcome
+Welcome,
 <?php echo htmlspecialchars($_SESSION["name"]); ?>
 </h2>
 
-<hr>
+<br>
+
+<div class="cards">
 
 <div class="card">
-
-<h3>Product Statistics</h3>
-
-<p>Total Products:
-<b><?php echo $total_products; ?></b></p>
-
-<p>Available Products:
-<b><?php echo $available_products; ?></b></p>
-
-<p>Sold Out Products:
-<b><?php echo $sold_products; ?></b></p>
-
+<h3>Total Products</h3>
+<p><?php echo $total_products; ?></p>
 </div>
 
 <div class="card">
-
-<h3>Order Statistics</h3>
-
-<p>Total Orders:
-<b><?php echo $total_orders; ?></b></p>
-
-<p>Pending Orders:
-<b><?php echo $pending_orders; ?></b></p>
-
-<p>Delivered Orders:
-<b><?php echo $delivered_orders; ?></b></p>
-
+<h3>Available Products</h3>
+<p><?php echo $available_products; ?></p>
 </div>
 
 <div class="card">
+<h3>Total Orders</h3>
+<p><?php echo $total_orders; ?></p>
+</div>
 
+<div class="card">
 <h3>Revenue</h3>
+<p>KES <?php echo number_format($total_revenue,0); ?></p>
+</div>
 
-<p>
-KES
-<b><?php echo number_format($total_revenue,2); ?></b>
-</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Pending Orders</h3>
+<p><?php echo $pending_orders; ?></p>
+</div>
+
+<div class="card">
+<h3>Delivered Orders</h3>
+<p><?php echo $delivered_orders; ?></p>
+</div>
+
+<div class="card">
+<h3>Sold Out Products</h3>
+<p><?php echo $sold_products; ?></p>
+</div>
+
+<div class="card">
+<h3>Average Price</h3>
+<p>KES <?php echo number_format($average_price,2); ?></p>
+</div>
 
 </div>
 
 <div class="card">
 
-<h3>Performance</h3>
+<h3>Performance Summary</h3>
+
+<br>
 
 <p>
-Best Selling Product:
-<b>
+
+<strong>Best Selling Product:</strong>
+
 <?php
+
 echo $best_product
 ? htmlspecialchars($best_product["product_name"])
 : "N/A";
+
 ?>
-</b>
+
 </p>
 
+<br>
+
 <p>
-Average Selling Price:
-<b>
-KES <?php echo number_format($average_price,2); ?>
-</b>
+
+<strong>Total Revenue:</strong>
+
+KES <?php echo number_format($total_revenue,2); ?>
+
 </p>
 
 </div>
 
-<hr>
+<br>
 
-<h3>Quick Actions</h3>
+<h2>Quick Actions</h2>
 
-<a href="add_products.php">➕ Add Products</a>
-<br><br>
+<div class="menu">
 
-<a href="view_products.php">📋 View Products</a>
-<br><br>
+<a href="add_products.php">
+➕ Add Products
+</a>
 
-<a href="view_orders.php">📦 View Orders</a>
-<br><br>
+<a href="view_products.php">
+📦 View Products
+</a>
 
-<a href="delivery_tracking.php">🚚 Delivery Tracking</a>
-<br><br>
+<a href="view_orders.php">
+🛒 View Orders
+</a>
 
-<a href="market_analytics.php">📈 Market Analytics</a>
-<br><br>
+<a href="delivery_tracking.php">
+🚚 Delivery Tracking
+</a>
 
-<a href="market_insights.php">💡 Market Insights</a>
-<br><br>
+<a href="market_analytics.php">
+📈 Market Analytics
+</a>
 
-<a href="messages.php">💬 Messages</a>
-<br><br>
+<a href="market_insights.php">
+💡 Market Insights
+</a>
+
 <a href="sales_analytics.php">
 📊 Sales Analytics
 </a>
-<br><br>
-<a href="stock_alerts.php">
-⚠ Stock Alerts
-</a>
 
-<br><br>
-<a href="export_sales_report.php">
-📊 Download Sales Report
-</a>
-
-<br><br>
 <a href="sales_charts.php">
 📈 Sales Charts
 </a>
 
-<br><br>
-<a href="profile.php">🏡 Farm Profile</a>
-<br><br>
+<a href="stock_alerts.php">
+⚠ Stock Alerts
+</a>
 
-<a href="../auth/logout.php">Logout</a>
+<a href="export_sales_report.php">
+📄 Download Report
+</a>
+
+<a href="profile.php">
+🏡 Farm Profile
+</a>
+
+<a href="messages.php">
+💬 Messages
+</a>
+
+<a href="../auth/logout.php">
+🚪 Logout
+</a>
+
+</div>
+
+</div>
 
 </body>
 </html>

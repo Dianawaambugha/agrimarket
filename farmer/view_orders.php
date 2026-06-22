@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -82,6 +83,9 @@ $orders = $stmt->fetchAll();
 <html>
 <head>
 <title>Incoming Orders</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
+
 </head>
 
 <body>

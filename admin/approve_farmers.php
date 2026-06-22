@@ -1,4 +1,5 @@
-<?php
+ diana 
+ <?php
 
 session_start();
 
@@ -49,6 +50,8 @@ $farmers = $stmt->fetchAll();
 <html>
 <head>
 <title>Approve Farmers</title>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 </head>
 
 <body>

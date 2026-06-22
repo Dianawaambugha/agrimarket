@@ -1,3 +1,4 @@
+diana 
 <?php
 
 session_start();
@@ -28,63 +29,8 @@ ORDER BY product_name
 <head>
 
 <title>Price Predictions</title>
-
-<style>
-
-body{
-    font-family: Arial, sans-serif;
-    margin:20px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-table, th, td{
-    border:1px solid #ccc;
-}
-
-th{
-    background:#f2f2f2;
-}
-
-th, td{
-    padding:10px;
-    text-align:center;
-}
-
-.up{
-    color:green;
-    font-weight:bold;
-}
-
-.down{
-    color:red;
-    font-weight:bold;
-}
-
-.same{
-    color:blue;
-    font-weight:bold;
-}
-
-.high{
-    color:green;
-    font-weight:bold;
-}
-
-.medium{
-    color:orange;
-    font-weight:bold;
-}
-
-.low{
-    color:red;
-    font-weight:bold;
-}
-
-</style>
+<link rel="stylesheet"
+href="../assets/css/style.css">
 
 </head>
 
